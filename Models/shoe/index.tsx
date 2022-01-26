@@ -1,9 +1,11 @@
 import * as THREE from 'three'
-import React, {Suspense, useRef} from 'react'
+import React, {Suspense ,useRef} from 'react'
 import {OrbitControls, useGLTF, Environment, ContactShadows} from '@react-three/drei'
 import { GLTF } from 'three-stdlib'
 import {Canvas} from "@react-three/fiber";
 import classes from "./ShoeScene.module.scss";
+import {useSnapshot } from 'valtio'
+import {ColorSettingType, StateType} from "../../pages";
 
 type GLTFResult = GLTF & {
     nodes: {
@@ -139,8 +141,10 @@ type GLTFResult = GLTF & {
         WHITE: THREE.MeshStandardMaterial
     }
 }
+type PropsTypeCar = JSX.IntrinsicElements['group'] & {colorSettings: ColorSettingType}
 
-function Car({ ...props }: JSX.IntrinsicElements['group']) {
+function Car(props : PropsTypeCar) {
+    const snap = useSnapshot(props.colorSettings)
     const group = useRef<THREE.Group>()
     const { nodes, materials } = useGLTF('/scene.gltf') as GLTFResult
     return (
@@ -150,6 +154,7 @@ function Car({ ...props }: JSX.IntrinsicElements['group']) {
                     <group rotation={[-Math.PI / 2, 0, 0]} scale={[100, 100, 100]}>
                         <mesh geometry={nodes.wheel_fr004_TIRES001_0.geometry} material={nodes.wheel_fr004_TIRES001_0.material} />
                         <mesh
+
                             geometry={nodes.wheel_fr004_TIRES001_0_1.geometry}
                             material={nodes.wheel_fr004_TIRES001_0_1.material}
                         />
@@ -162,6 +167,7 @@ function Car({ ...props }: JSX.IntrinsicElements['group']) {
                             material={nodes.wheel_fr004_TIRES001_0_3.material}
                         />
                         <mesh
+                            material-color={snap.items.wheels}
                             geometry={nodes.wheel_fr004_CAR_PAINT001_0.geometry}
                             material={nodes.wheel_fr004_CAR_PAINT001_0.material}
                         />
@@ -206,7 +212,7 @@ function Car({ ...props }: JSX.IntrinsicElements['group']) {
                         <mesh geometry={nodes.rubber_BLACK001_0.geometry} material={materials['BLACK.001']} />
                         <mesh geometry={nodes.roof_CAR_PAINT_0.geometry} material={nodes.roof_CAR_PAINT_0.material} />
                         <mesh geometry={nodes.rear_lights_RED_0.geometry} material={materials.material} />
-                        <mesh geometry={nodes.rear_lights_CHROME_0.geometry} material={nodes.rear_lights_CHROME_0.material} />
+                        <mesh material-color={snap.items.chrom} geometry={nodes.rear_lights_CHROME_0.geometry} material={nodes.rear_lights_CHROME_0.material} />
                         <mesh geometry={nodes.rear_lights_RED_GLASS_0.geometry} material={materials.RED_GLASS} />
                         <mesh geometry={nodes.rear_lights_YELLOW_0.geometry} material={materials.YELLOW} />
                         <mesh geometry={nodes.rear_lights_BLACK_0.geometry} material={nodes.rear_lights_BLACK_0.material} />
@@ -226,7 +232,7 @@ function Car({ ...props }: JSX.IntrinsicElements['group']) {
                             geometry={nodes.air_intake_side_CARBON_0.geometry}
                             material={nodes.air_intake_side_CARBON_0.material}
                         />
-                        <mesh geometry={nodes.body_CAR_PAINT_0.geometry} material={nodes.body_CAR_PAINT_0.material} />
+                        <mesh material-color={snap.items.body} geometry={nodes.body_CAR_PAINT_0.geometry} material={nodes.body_CAR_PAINT_0.material} />
                         <mesh
                             geometry={nodes.bumper_rear2_CAR_PAINT_0.geometry}
                             material={nodes.bumper_rear2_CAR_PAINT_0.material}
@@ -240,6 +246,7 @@ function Car({ ...props }: JSX.IntrinsicElements['group']) {
                             material={nodes.front_bumper_BLACK_ROUGH_0.material}
                         />
                         <mesh
+
                             geometry={nodes.front_bumper_CAR_PAINT_0.geometry}
                             material={nodes.front_bumper_CAR_PAINT_0.material}
                         />
@@ -346,19 +353,18 @@ function Car({ ...props }: JSX.IntrinsicElements['group']) {
         </group>
     )
 }
-
-type PropsType ={
-
+type  PropsType ={
+    colorSettings: ColorSettingType
 }
 
-export  const  ShoeScene : React.FC<PropsType> =(props)=>{
+export  const  ShoeScene:React.FC<PropsType>  =({colorSettings})=>{
     return(
         <div className={classes.scene_wrapper}>
             <Canvas>
                 <ambientLight intensity={0.5}/>
                 <spotLight intensity={0.1} position={[5,20,20]}/>
                 <Suspense fallback={null}>
-                    <Car/>
+                    <Car colorSettings={colorSettings}/>
                     <Environment files={'/royal_esplanade_1k.hdr'}/>
                     <ContactShadows position={[0,0,0]} opacity={1} scale={50} blur={1} far={50} resolution={256}/>
                 </Suspense>

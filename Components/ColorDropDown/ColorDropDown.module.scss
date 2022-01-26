@@ -1,0 +1,28 @@
+.color_menu{
+  padding-bottom: 10px;
+  height: auto;
+  overflow: hidden;
+  transition: max-height 1s cubic-bezier(1, 1, 1, 1);
+  .title_dropDown{
+    width: 100%;
+    z-index: 2;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    p{
+      font-family: 'Noto Serif', serif;
+      color: white;
+      font-size: 16px;
+    }
+    svg{
+      width: 10px;
+      color: white;
+      margin-left: 10px;
+    }
+  }
+
+
+  .color_menu_custom{
+    width: 100%;
+  }
+}

@@ -1,0 +1,49 @@
+.page_wrapper {
+    min-height: 100vh;
+    width: 100%;
+    position: relative;
+
+}
+.colorPicker_wrapper {
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #282B33;
+
+}
+
+.color_pick {
+    position: absolute;
+    width: 100%;
+    display: flex;
+    padding: 15px 30px;
+}
+.color_pick h1 {
+    color: dimgrey;
+    text-align: center;
+    width: 100%;
+    font-size: 45px;
+}
+.test {
+    color: red;
+}
+.form_control {
+    margin-top: 10px;
+    label, svg, div{
+        color: white;
+    }
+    option{
+        color: black;
+        font-family: 'Noto Serif', serif;
+    }
+    select{
+        border-radius: 10px;
+    }
+    &::after{
+        border-color: white;
+    }
+
+}

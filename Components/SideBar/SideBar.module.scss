@@ -1,0 +1,28 @@
+.menu_wrapper {
+  height: 100%;
+  top: 0;
+  right: 0;
+  width: 300px;
+  background-color: #151515;
+  & h1,h2,h3,p,span{
+    font-family: 'Noto Serif', serif;
+  }
+  h2{
+    margin-bottom: 0;
+    color: white;
+    text-align: center;
+    margin-top: 10px;
+    border-bottom: 1px solid gray;
+    padding-bottom: 10px;
+  }
+  .block_menu{
+    padding: 20px 15px;
+    border-bottom: 1px solid gray;
+    h3{
+      margin: 0;
+      color: white;
+      font-size: 18px;
+      font-style: italic;
+    }
+  }
+}
