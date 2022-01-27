@@ -4,7 +4,7 @@ import React from 'react';
 import {ShoeScene} from "../Models/shoe";
 import {proxy, useSnapshot} from "valtio";
 import { HexColorPicker } from 'react-colorful';
-import {FormControl, InputLabel, MenuItem, NativeSelect, Select} from '@mui/material';
+import {FormControl, InputLabel, MenuItem, Select} from '@mui/material';
 
 export  type  CurrentType = 'body' | 'wheels' | 'chrom'
 export type ColorSettingType = typeof  state
@@ -35,6 +35,7 @@ let changeCurrent = (name: string)=>{
 let changeColor = (newColor: string)=>{
     state.items[state.current] = newColor
 }
+
 
 const Home: NextPage = () => {
     const snap = useSnapshot(state)
