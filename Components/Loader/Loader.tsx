@@ -1,7 +1,6 @@
 import {Html, useProgress} from "@react-three/drei";
 import classes from "./Loader.module.scss";
 import React from "react";
-import {Canvas} from "@react-three/fiber";
 
 
 export const Loader = () => {

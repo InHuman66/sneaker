@@ -1,19 +1,20 @@
 import type {NextPage} from 'next'
 import classes from '../styles/Home.module.scss'
 import React from 'react';
-import {ShoeScene} from "../Models/shoe";
+import {Scene} from "../Models/scene";
 import {proxy, useSnapshot} from "valtio";
 import { HexColorPicker } from 'react-colorful';
 import {FormControl, InputLabel, MenuItem, Select} from '@mui/material';
 
-export  type  CurrentType = 'body' | 'wheels' | 'chrom'
+export  type  CurrentType = 'body' | 'wheels' | 'chrom' | 'carbon'
 export type ColorSettingType = typeof  state
 export type  StateType ={
     current:  CurrentType  ,
     items: {
         body: string,
         wheels: string,
-        chrom: string
+        chrom: string,
+        carbon: string
     }
 }
 
@@ -23,7 +24,8 @@ let state: StateType = proxy({
     items: {
         body: '#000000',
         wheels: '#ff0000',
-        chrom: '#000000'
+        chrom: '#000000',
+        carbon: '#000000'
     }
 })
 
@@ -41,7 +43,7 @@ const Home: NextPage = () => {
     const snap = useSnapshot(state)
     return (
         <div className={classes.page_wrapper}>
-            <ShoeScene colorSettings={state}/>
+            <Scene colorSettings={state}/>
             <div className={classes.colorPicker_wrapper}>
                 <HexColorPicker  color={snap.items[snap.current]} onChange={(color)=>{changeColor(color)}}/>
                 <FormControl  className={classes.form_control}  fullWidth>
@@ -53,9 +55,11 @@ const Home: NextPage = () => {
                         variant={'standard'}
                         defaultValue={'body'}
                     >
+
                         <MenuItem value={'body'}>Body</MenuItem>
                         <MenuItem value={'wheels'}>Wheels</MenuItem>
                         <MenuItem value={'chrom'}>Chrom</MenuItem>
+                        <MenuItem value={'carbon'}>Carbon</MenuItem>
                     </Select>
                 </FormControl>
             </div>
